@@ -11,10 +11,10 @@ jobs:
         uses: actions/checkout@v2
 
       - run: |
-          echo ${{ env.GITHUB_REF }}
-          echo ${{ env.GITHUB_SHA }}
-          echo ${{ env.GITHUB_HEAD_REF }}
-          echo ${{ env.GITHUB_BASE_REF }}
+          echo ${{ github.ref }}
+          echo ${{ github.SHA }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
 
       # If none of these files has changed, we assume that the contents of .m2/repository can be fetched from the cache.
       - name: Hash Maven files
