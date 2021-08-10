@@ -60,16 +60,16 @@ jobs:
           manifest_file_path: pom.xml
           crda_key: fed5df15-7f18-42d1-aa7d-b6c36aa27d4e
           fail_on_vulnerability: false
-          upload_sarif: false
+          # upload_sarif: true
 
       - name: Echo Report Link
         run: echo ${{ steps.scan.outputs.report_link }}
 
-      - name: Upload result to GitHub Code Scanning
-        if: ${{ steps.scan.outputs.crda_report_sarif }}
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: ${{ steps.scan.outputs.crda_report_sarif }}
+      # - name: Upload result to GitHub Code Scanning
+      #   if: ${{ steps.scan.outputs.crda_report_sarif }}
+      #   uses: github/codeql-action/upload-sarif@v1
+      #   with:
+      #     sarif_file: ${{ steps.scan.outputs.crda_report_sarif }}
 
       - name: Save intermediate files
         run: |
