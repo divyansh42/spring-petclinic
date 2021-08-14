@@ -2,7 +2,7 @@ name: CRDA scan Java Example
 on:
   push:
   workflow_dispatch:
-  pull_request_target:
+  pull_request_target: 
     types: [assigned, opened, synchronize, reopened, labeled, edited]
 jobs:
   test:
@@ -33,7 +33,7 @@ jobs:
           path: ${{ env.MVN_REPO_DIR }}
           key: ${{ env.MVN_HASH }}
 
-      - name: Setup Java
+      - name: Setup Java 
         uses: actions/setup-java@v1
         with:
           java-version: 11
