@@ -77,6 +77,7 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.crda_report_sarif }}
 
       - name: Save intermediate files
+        if: ${{ steps.scan.outputs.crda_report_json && steps.scan.outputs.crda_report_sarif }}
         run: |
           mkdir -p uploads
           mv ${{ steps.scan.outputs.crda_report_json }} uploads
