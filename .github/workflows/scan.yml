@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
   pull_request_target:
-    types: [assigned, opened, synchronize, reopened, labeled, edited]
+    types: [assigned, opened, synchronize, reopened, labeled, edited] 
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -63,7 +63,7 @@ jobs:
         uses: divyansh42/crda@support-pr
         with:
           manifest_file_path: pom.xml
-          crda_key: fed5df15-7f18-42d1-aa7d-b6c36aa27d4e
+          crda_key: ${{ secrets.CRDA_KEY }}
           fail_on_vulnerability: false
           upload_sarif: true
 
