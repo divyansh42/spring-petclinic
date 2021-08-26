@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: test
 
       # - run: |
       #     echo ${{ github.ref }}
@@ -67,9 +65,7 @@ jobs:
           manifest_file_path: pom.xml
           crda_key: fed5df15-7f18-42d1-aa7d-b6c36aa27d4e
           fail_on_vulnerability: false
-          checkout_path: test
           upload_sarif: true
-          dependency_installation_cmd: mvn -ntp -B package
 
       - name: Echo Report Link
         run: echo ${{ steps.scan.outputs.report_link }}
