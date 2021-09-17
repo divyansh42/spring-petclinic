@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
   pull_request_target:
-    types: [assigned, opened, synchronize, reopened, labeled, edited]
+    types: [ assigned, opened, synchronize, reopened, labeled, edited ]
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -13,12 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      # - run: |
-      #     echo ${{ github.ref }}
-      #     echo ${{ github.SHA }}
-      #     echo ${{ github.head_ref }}
-      #     echo ${{ github.base_ref }}
 
       # If none of these files has changed, we assume that the contents of .m2/repository can be fetched from the cache.
       - name: Hash Maven files
@@ -40,8 +34,6 @@ jobs:
 
       - run: java -version
 
-      # - run: mvn -ntp -B package
-
       # If there was no cache hit above, store the output into the cache now.
       - name: Save Maven repo into cache
         if: ${{ steps.check-mvn-cache.outputs.cache-hit }} != 'true'
@@ -60,22 +52,20 @@ jobs:
       - name: CRDA Scan
         id: scan
         # uses: redhat-actions/crda@main
-        uses: redhat-actions/crda@main
+        uses: divyansh42/crda@improve-fail-on
         with:
-          manifest_file_path: pom.xml
+          manifest_path: pom.xml
           crda_key: ${{ secrets.CRDA_KEY }}
-          fail_on_vulnerability: false
-          upload_sarif: true
-          dependency_installation_cmd: mvn -ntp -B package
+          fail_on: never
 
       - name: Echo Report Link
         run: echo ${{ steps.scan.outputs.report_link }}
 
-      - name: Upload result to GitHub Code Scanning
-        if: ${{ steps.scan.outputs.crda_report_sarif }}
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: ${{ steps.scan.outputs.crda_report_sarif }}
+      # - name: Upload result to GitHub Code Scanning
+      #   if: ${{ steps.scan.outputs.crda_report_sarif }}
+      #   uses: github/codeql-action/upload-sarif@v1
+      #   with:
+      #     sarif_file: ${{ steps.scan.outputs.crda_report_sarif }}
 
       - name: Save intermediate files
         if: ${{ steps.scan.outputs.crda_report_json && steps.scan.outputs.crda_report_sarif }}
