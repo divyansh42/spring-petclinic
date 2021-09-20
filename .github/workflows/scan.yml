@@ -52,7 +52,7 @@ jobs:
       - name: CRDA Scan
         id: scan
         # uses: redhat-actions/crda@main
-        uses: divyansh42/crda@skip-pr-check
+        uses: divyansh42/crda@improve-pr-labelling
         with:
           manifest_path: pom.xml
           crda_key: ${{ secrets.CRDA_KEY }}
